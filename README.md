@@ -1,73 +1,235 @@
-# React + TypeScript + Vite
+# MathViz - Интерактивный учебник математики
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Общее описание
 
-Currently, two official plugins are available:
+MathViz - это современное веб-приложение для изучения математики с интерактивной 3D-визуализацией геометрических фигур. Приложение построено на React 19 с TypeScript и использует Three.js для создания интерактивных 3D-моделей.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Технологический стек
 
-## React Compiler
+### Основные технологии
+- **React 19.2.4** - основной фреймворк для построения пользовательского интерфейса
+- **TypeScript** - статическая типизация JavaScript
+- **Vite** - современный сборщик и инструмент разработки
+- **React Router DOM 7.13.2** - маршрутизация для одностраничного приложения
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### Состояние и управление данными
+- **Redux Toolkit 2.11.2** - современный инструмент для управления состоянием приложения
+- **React Redux 9.2.0** - интеграция Redux с React
 
-## Expanding the ESLint configuration
+### 3D-визуализация и графика
+- **React Three Fiber 9.5.0** - React-рендерер для Three.js
+- **React Three Drei 10.7.7** - полезные компоненты и утилиты для React Three Fiber
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+### Математика и формулы
+- **KaTeX 0.16.42** - быстрый движок для рендеринга математических формул
+- **React KaTeX 3.1.0** - React-компоненты для KaTeX
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+### Стили и анимации
+- **Tailwind CSS 3.4.1** - утилитарный CSS-фреймворк
+- **Framer Motion 12.38.0** - библиотека для анимаций
+- **PostCSS 8.5.8** - инструмент для трансформации CSS
+- **Autoprefixer 10.4.27** - автоматическое добавление префиксов
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+### Инструменты разработки
+- **ESLint 9.39.4** - инструмент для поиска проблем в JavaScript-коде
+- **TypeScript ESLint 8.57.0** - TypeScript-плагин для ESLint
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+## Структура проекта
+
+```
+d:\web2\react\math\
+├── src\
+│   ├── components\          # Компоненты React
+│   │   ├── Layout.tsx      # Основной компонент-обертка
+│   │   ├── Header.tsx      # Шапка сайта
+│   │   ├── FigureInfo.tsx  # Компонент информации о фигуре
+│   │   └── Exercises.tsx   # Компонент упражнений
+│   ├── pages\              # Страницы приложения
+│   │   ├── HomePage.tsx     # Главная страница
+│   │   ├── LessonsPage.tsx  # Страница со списком уроков
+│   │   └── LessonPage.tsx  # Страница отдельного урока
+│   ├── store\              # Redux хранилище
+│   │   ├── index.ts        # Настройка хранилища
+│   │   ├── themeSlice.ts   # Слайс для управления темой
+│   │   ├── progressSlice.ts # Слайс для прогресса обучения
+│   │   └── lessonSlice.ts  # Слайс для работы с уроками
+│   ├── types\              # TypeScript типы
+│   │   └── index.ts        # Основные типы приложения
+│   ├── utils\              # Утилиты и вспомогательные функции
+│   │   ├── cn.ts           # Утилита для работы с классами
+│   │   └── lessonsData.ts  # Данные уроков
+│   ├── hooks\              # Кастомные хуки
+│   ├── scenes\             # 3D сцены
+│   ├── assets\             # Статические активы
+│   ├── App.tsx             # Главный компонент приложения
+│   └── main.tsx            # Точка входа в приложение
+├── public\                 # Публичные файлы
+├── dist\                   # Сборка приложения
+├── node_modules\           # Зависимости проекта
+└── Конфигурационные файлы
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## Конфигурационные файлы
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+### Vite (vite.config.ts)
+- Настройка сборки и разработки
+- Путьовые алиасы для удобной импортной структуры
+- Настройка сервера разработки (порт 5173)
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
+```typescript
+{
+  plugins: [react()],
+  resolve: {
+    alias: {
+      "@": "./src",
+      "@components": "./src/components",
+      "@scenes": "./src/scenes",
+      "@store": "./src/store",
+      "@hooks": "./src/hooks",
+      "@types": "./src/types",
+      "@utils": "./src/utils",
+      "@assets": "./src/assets",
     },
   },
-])
+  server: {
+    host: true,
+    port: 5173,
+  },
+}
 ```
+
+### TypeScript (tsconfig.app.json)
+- Целевая версия ES2023
+- Строгая типизация
+- Поддержка JSX React
+- Путьовые алиасы
+
+### Tailwind CSS (tailwind.config.js)
+- Кастомные цвета (primary, accent)
+- Темная тема (dark mode)
+- Кастомные анимации
+- Расширенная типографика
+
+## Архитектура приложения
+
+### Управление состоянием (Redux)
+Приложение использует Redux Toolkit для управления состоянием с тремя основными слайсами:
+
+1. **Theme Slice** - управление темой приложения (light/dark)
+2. **Progress Slice** - отслеживание прогресса обучения
+3. **Lesson Slice** - работа с текущим уроком и 3D-моделями
+
+### Маршрутизация
+Приложение использует React Router для навигации между страницами:
+- `/` - Главная страница
+- `/lessons` - Список всех уроков
+- `/lesson/:id` - Конкретный урок
+- `/exercises` - Упражнения (пока в разработке)
+- `/progress` - Статистика прогресса (пока в разработке)
+
+### 3D-визуализация
+Приложение использует Three.js через React Three Fiber для создания интерактивных 3D-моделей геометрических фигур:
+- Кратеры
+- Пирамиды
+- Цилиндры
+- Конусы
+- Сферы
+
+## Функциональность
+
+### Основные возможности
+1. **Интерактивные 3D-модели** - пользователи могут вращать, масштабировать и изучать геометрические фигуры
+2. **Теоретические материалы** - подробные объяснения с формулами и примерами
+3. **Упражнения с проверкой** - мгновенная обратная связь при решении задач
+4. **Отслеживание прогресса** - система сохранения прогресса обучения
+5. **Адаптивный дизайн** - корректное отображение на всех устройствах
+6. **Темная/светлая тема** - переключение между темами с сохранением предпочтений
+
+### Особенности интерфейса
+- Современный и интуитивный дизайн
+- Плавные анимации с Framer Motion
+- Адаптивная навигация
+- Кастомные компоненты UI
+
+## Данные уроков
+
+Приложение содержит структурированные данные для уроков, включающие:
+- Теоретическую часть с форматированным текстом
+- 3D-модели с параметрами и формулами
+- Упражнения разных типов (ввод ответа, выбор варианта)
+- Объяснения к каждому упражнению
+
+## Скрипты для разработки
+
+### Доступные команды
+```bash
+# Запуск режима разработки
+npm run dev
+
+# Сборка для продакшена
+npm run build
+
+# Запуск сборки для предпросмотра
+npm run preview
+
+# Запуск линтера
+npm run lint
+```
+
+### Среда разработки
+- Горячая перезагрузка (Hot Module Replacement)
+- Быстрый сборщик Vite
+- Интегрированный TypeScript
+
+## Особенности проекта
+
+### Производительность
+- Оптимизированная сборка с Vite
+- Ленивая загрузка компонентов
+- Оптимизированные 3D-модели
+
+### Совместимость
+- Современные браузеры (Chrome, Firefox, Safari, Edge)
+- Поддержка мобильных устройств
+- Адаптивный дизайн
+
+### Расширяемость
+- Модульная архитектура
+- Четкая структура типов TypeScript
+- Гибкая конфигурация сборки
+
+## Руководство по запуску
+
+1. **Клонирование репозитория**
+```bash
+git clone <repository-url>
+cd d--web2-react-math
+```
+
+2. **Установка зависимостей**
+```bash
+npm install
+```
+
+3. **Запуск разработки**
+```bash
+npm run dev
+```
+
+4. **Сборка для продакшена**
+```bash
+npm run build
+```
+
+5. **Проверка линтером**
+```bash
+npm run lint
+```
+
+## Лицензия
+
+Проект создан для образовательных целей.
+
+---
+
+**MathViz** - делая математику понятной и увлекательной через интерактивную визуализацию.
